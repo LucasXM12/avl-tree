@@ -1,14 +1,20 @@
 #pragma once
+
 #include <string>
+
+#ifndef TREE_H
+#define TREE_H
+
+#define max(a, b) a > b ? a : b
 
 using namespace std;
 
 class Tree {
 	typedef struct node {
+		int data;
+
 		node* left;
 		node* right;
-
-		node* parent;
 
 		int height;
 	} node;
@@ -18,10 +24,14 @@ public:
 	virtual ~Tree();
 
 	string toString();
-	void delTree(node**);
+	void addNode(int);
 private:
 	node* root;
 
+	void delTree(node*);
 	string toString(node*);
-} tree;
+	bool addNode(node*, int);
+};
+
+#endif // TREE_H
 
