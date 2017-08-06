@@ -20,41 +20,116 @@ void Tree::delTree (node* root) {
 	delete root;
 }
 
-string Tree::toString () {
+string Tree::toString () const {
 	if (this->root == NULL)
 		return "null";
 
 	return toString (this->root);
 }
 
-string Tree::toString (node* root) {
+string Tree::toString (node* root) const {
 	string ret;
 
 	if (root->left != NULL)
-		ret = "(" + toString (root->left) + ")<";
+		ret = "(" + toString (root->left) + ")<-";
 
-	ret += root->data;
+	ret += to_string (root->data);
 
-	if (root->left != NULL)
-		ret += ">(" + toString (root->left) + ")";
+	if (root->right != NULL)
+		ret += "->(" + toString (root->right) + ")";
 
 	return ret;
 }
 
-void Tree::addNode (int data) {
-	addNode (this->root, data);
+Tree::node* Tree::newNode (int data) const {
+	node* ret = new node ();
+
+	ret->data = data;
+	ret->left = NULL;
+	ret->right = NULL;
+	ret->height = 1;
+
+	return ret;
 }
 
-bool Tree::addNode (node* root, int data) {
-	if (root == NULL) {
-	} else if (data < root->data) {
-		if (addNode (root->left, data)) {
-		}
-	} else {
-		if (addNode (root->right, data)) {
-		}
-	}
+Tree::node* Tree::leftRotate (node* root) {
+	node* y = root->right;
+	node* T2 = y->left;
+
+	//Update conections:
+	y->left = root;
+	root->right = T2;
+
+	//Update heights:
+	root->height = height_update (root);
+	y->height = height_update (y);
+
+	return y;
 }
+
+Tree::node* Tree::rightRotate (node* root) {
+	node* x = root->left;
+	node* T2 = x->right;
+
+	//Update conections:
+	x->right = root;
+	root->left = T2;
+
+	//Update heights:
+	root->height = height_update (root);
+	x->height = height_update (x);
+
+	return x;
+}
+
+void Tree::addNode (int data) {
+	this->root = addNode (this->root, data);
+}
+
+Tree::node* Tree::addNode (node* root, int data) {
+	//Normal insertion:--------------------------- 
+	if (root == NULL)
+		return(newNode (data));
+
+	if (data < root->data)
+		root->left = addNode (root->left, data);
+	else
+		root->right = addNode (root->right, data);
+
+	//Update height:---------------------------
+	root->height = height_update (root);
+
+	//Get balance factor:---------------------------
+	int balance = balance_factor (root);
+
+	//Balance this sub tree:---------------------------
+	//LL Case:
+	if (balance > 1 && data < root->left->data)
+		return rightRotate (root);
+
+	//RR Case:
+	if (balance < -1 && data > root->right->data)
+		return leftRotate (root);
+
+	//LR Case:
+	if (balance > 1 && data > root->left->data) {
+		root->left = leftRotate (root->left);
+
+		return rightRotate (root);
+	}
+
+	//RL Case:
+	if (balance < -1 && data < root->right->data) {
+		root->right = rightRotate (root->right);
+
+		return leftRotate (root);
+	}
+
+	//If is balanced:
+	return root;
+}
+
+
 
 
 
