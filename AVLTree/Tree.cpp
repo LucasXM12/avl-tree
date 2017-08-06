@@ -14,7 +14,7 @@ void Tree::delTree (node* root) {
 	if (root->left != NULL)
 		delTree (root->left);
 
-	if (root->left != NULL)
+	if (root->right != NULL)
 		delTree (root->right);
 
 	delete root;
@@ -50,6 +50,13 @@ Tree::node* Tree::newNode (int data) const {
 	ret->height = 1;
 
 	return ret;
+}
+
+Tree::node* Tree::minNode (node* root) {
+	if (root->left != NULL)
+		return minNode (root->left);
+
+	return root;
 }
 
 Tree::node* Tree::leftRotate (node* root) {
@@ -120,6 +127,75 @@ Tree::node* Tree::addNode (node* root, int data) {
 
 	//RL Case:
 	if (balance < -1 && data < root->right->data) {
+		root->right = rightRotate (root->right);
+
+		return leftRotate (root);
+	}
+
+	//If is balanced:
+	return root;
+}
+
+void Tree::delNode (int data) {
+	this->root = delNode (this->root, data);
+}
+
+Tree::node* Tree::delNode (node* root, int data) {
+	//Normal deletion:---------------------------
+	if (root == NULL)
+		return root;
+	else if (data < root->data) //The node is on the left sub tree:
+		root->left = delNode (root->left, data);
+	else if (data > root->data) //The node is on the right sub tree:
+		root->right = delNode (root->right, data);
+	else { //The node is the current one:
+		if (root->left == NULL || root->right == NULL) { //One or none children:
+			node* aux = root->left ? root->left : root->right;
+
+			//No child:
+			if (aux == NULL) {
+				aux = root;
+				root = NULL;
+			} else //One child:
+				*root = *aux;
+
+			delete aux;
+		} else { //Two children:
+			node* aux = minNode (root->right);
+
+			root->data = aux->data;
+
+			root->right = delNode (root->right, aux->data);
+		}
+	}
+
+	if (root == NULL)
+		return NULL;
+
+	//Update height:---------------------------
+	root->height = height_update (root);
+
+	//Get balance factor:---------------------------
+	int balance = balance_factor (root);
+
+	//Balance this sub tree:---------------------------
+	//LL Case:
+	if (balance > 1 && balance_factor (root->left) >= 0)
+		return rightRotate (root);
+
+	//LR Case:
+	if (balance > 1 && balance_factor (root->left) < 0) {
+		root->left = leftRotate (root->left);
+
+		return rightRotate (root);
+	}
+
+	//RR Case:
+	if (balance < -1 && balance_factor (root->right) <= 0)
+		return leftRotate (root);
+
+	//RL Case:
+	if (balance < -1 && balance_factor (root->right) > 0) {
 		root->right = rightRotate (root->right);
 
 		return leftRotate (root);

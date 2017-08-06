@@ -13,21 +13,17 @@ using namespace std;
 int main () {
 	Tree aux;
 
+	aux.addNode (9);
+	aux.addNode (5);
+	aux.addNode (10);
+	aux.addNode (0);
+	aux.addNode (6);
+	aux.addNode (11);
+	aux.addNode (-1);
 	aux.addNode (1);
 	aux.addNode (2);
-	aux.addNode (3);
-	aux.addNode (4);
-	aux.addNode (5);
-	aux.addNode (6);
-	aux.addNode (7);
-	aux.addNode (8);
-	aux.addNode (9);
-	aux.addNode (10);
-	aux.addNode (1);
-	aux.addNode (5);
-	aux.addNode (7);
-	aux.addNode (9);
-	aux.addNode (10);
+
+	aux.delNode (10);
 
 	cout << aux.toString ();
 

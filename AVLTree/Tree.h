@@ -29,6 +29,10 @@ public:
 
 	void addNode (int);
 	node* newNode (int) const;
+
+	node* minNode (node*);
+
+	void delNode (int);
 private:
 	node* root;
 
@@ -40,6 +44,7 @@ private:
 	node* rightRotate (node*);
 
 	node* addNode (node*, int);
+	node* delNode (node*, int);
 };
 
 #endif // TREE_H
