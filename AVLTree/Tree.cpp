@@ -52,9 +52,24 @@ Tree::node* Tree::newNode (int data) const {
 	return ret;
 }
 
+int Tree::minNode () {
+	return minNode (this->root)->data;
+}
+
 Tree::node* Tree::minNode (node* root) {
 	if (root->left != NULL)
 		return minNode (root->left);
+
+	return root;
+}
+
+int Tree::maxNode () {
+	return maxNode (this->root)->data;
+}
+
+Tree::node* Tree::maxNode (node* root) {
+	if (root->right != NULL)
+		return maxNode (root->right);
 
 	return root;
 }

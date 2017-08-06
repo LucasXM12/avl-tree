@@ -30,7 +30,8 @@ public:
 	void addNode (int);
 	node* newNode (int) const;
 
-	node* minNode (node*);
+	int minNode ();
+	int maxNode ();
 
 	void delNode (int);
 private:
@@ -39,6 +40,9 @@ private:
 	void delTree (node*);
 
 	string toString (node*) const;
+
+	node* minNode (node*);
+	node* maxNode (node*);
 
 	node* leftRotate (node*);
 	node* rightRotate (node*);

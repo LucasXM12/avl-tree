@@ -27,6 +27,8 @@ int main () {
 
 	cout << aux.toString ();
 
+	cout << aux.minNode () << " " << aux.maxNode ();
+
 	_getch ();
 
 	return 0;
