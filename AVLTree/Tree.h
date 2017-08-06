@@ -30,8 +30,10 @@ public:
 	void addNode (int);
 	node* newNode (int) const;
 
-	int minNode ();
-	int maxNode ();
+	int minNode () const;
+	int maxNode () const;
+
+	bool exists (int) const;
 
 	void delNode (int);
 private:
@@ -41,8 +43,10 @@ private:
 
 	string toString (node*) const;
 
-	node* minNode (node*);
-	node* maxNode (node*);
+	node* minNode (node*) const;
+	node* maxNode (node*) const;
+
+	bool exists (int, node*) const;
 
 	node* leftRotate (node*);
 	node* rightRotate (node*);

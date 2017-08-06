@@ -52,26 +52,39 @@ Tree::node* Tree::newNode (int data) const {
 	return ret;
 }
 
-int Tree::minNode () {
+int Tree::minNode () const {
 	return minNode (this->root)->data;
 }
 
-Tree::node* Tree::minNode (node* root) {
+Tree::node* Tree::minNode (node* root) const {
 	if (root->left != NULL)
 		return minNode (root->left);
 
 	return root;
 }
 
-int Tree::maxNode () {
+int Tree::maxNode () const {
 	return maxNode (this->root)->data;
 }
 
-Tree::node* Tree::maxNode (node* root) {
+Tree::node* Tree::maxNode (node* root) const {
 	if (root->right != NULL)
 		return maxNode (root->right);
 
 	return root;
+}
+
+bool Tree::exists (int data) const {
+	return exists (data, this->root);
+}
+
+bool Tree::exists (int data, node* root) const {
+	if (data == root->data)
+		return true;
+	else if (data < root->data)
+		return root->left ? exists (data, root->left) : false;
+	else
+		return root->right ? exists (data, root->right) : false;
 }
 
 Tree::node* Tree::leftRotate (node* root) {
