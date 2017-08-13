@@ -41,7 +41,7 @@ string Tree::toString (node* root) const {
 	return ret;
 }
 
-Tree::node* Tree::newNode (int data) const {
+Tree::node* Tree::newNode (const int data) const {
 	node* ret = new node ();
 
 	ret->data = data;
@@ -74,11 +74,11 @@ Tree::node* Tree::maxNode (node* root) const {
 	return root;
 }
 
-bool Tree::exists (int data) const {
+bool Tree::exists (const int data) const {
 	return exists (data, this->root);
 }
 
-bool Tree::exists (int data, node* root) const {
+bool Tree::exists (const int data, node* root) const {
 	if (data == root->data)
 		return true;
 	else if (data < root->data)
@@ -117,11 +117,11 @@ Tree::node* Tree::rightRotate (node* root) {
 	return x;
 }
 
-void Tree::addNode (int data) {
+void Tree::addNode (const int data) {
 	this->root = addNode (this->root, data);
 }
 
-Tree::node* Tree::addNode (node* root, int data) {
+Tree::node* Tree::addNode (node* root, const int data) {
 	//Normal insertion:--------------------------- 
 	if (root == NULL)
 		return(newNode (data));
@@ -164,11 +164,11 @@ Tree::node* Tree::addNode (node* root, int data) {
 	return root;
 }
 
-void Tree::delNode (int data) {
+void Tree::delNode (const int data) {
 	this->root = delNode (this->root, data);
 }
 
-Tree::node* Tree::delNode (node* root, int data) {
+Tree::node* Tree::delNode (node* root, const int data) {
 	//Normal deletion:---------------------------
 	if (root == NULL)
 		return root;
@@ -233,8 +233,6 @@ Tree::node* Tree::delNode (node* root, int data) {
 	return root;
 }
 
-
-
-
-
-
+ostream& operator<<(ostream& os, const Tree& tree) {
+	return os << tree.toString ();
+}

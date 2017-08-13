@@ -21,21 +21,24 @@ class Tree {
 
 		int height;
 	} node;
+
 public:
 	Tree ();
 	virtual ~Tree ();
 
 	string toString () const;
 
-	void addNode (int);
-	node* newNode (int) const;
+	void addNode (const int);
+	node* newNode (const int) const;
 
 	int minNode () const;
 	int maxNode () const;
 
-	bool exists (int) const;
+	bool exists (const int) const;
 
-	void delNode (int);
+	void delNode (const int);
+
+	friend ostream& operator<<(ostream&, const Tree&);
 private:
 	node* root;
 
@@ -46,13 +49,13 @@ private:
 	node* minNode (node*) const;
 	node* maxNode (node*) const;
 
-	bool exists (int, node*) const;
+	bool exists (const int, node*) const;
 
 	node* leftRotate (node*);
 	node* rightRotate (node*);
 
-	node* addNode (node*, int);
-	node* delNode (node*, int);
+	node* addNode (node*, const int);
+	node* delNode (node*, const int);
 };
 
 #endif // TREE_H

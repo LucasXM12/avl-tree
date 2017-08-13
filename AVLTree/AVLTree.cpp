@@ -25,9 +25,7 @@ int main () {
 
 	aux.delNode (10);
 
-	cout << aux.toString ();
-
-	cout << "\n" << aux.minNode () << " " << aux.maxNode () << " " << aux.exists (7);
+	cout << aux;
 
 	_getch ();
 
