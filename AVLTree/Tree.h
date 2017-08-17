@@ -13,6 +13,7 @@
 using namespace std;
 
 class Tree {
+private:
 	typedef struct node {
 		int data;
 
@@ -21,6 +22,23 @@ class Tree {
 
 		int height;
 	} node;
+
+	node* root;
+
+	void delTree(node*);
+
+	string toString(const node*) const;
+
+	node* minNode(node*) const;
+	node* maxNode(node*) const;
+
+	bool exists(const int&, const node*) const;
+
+	node* leftRotate(node*);
+	node* rightRotate(node*);
+
+	node* addNode(node*, const int&);
+	node* delNode(node*, const int&);
 
 public:
 	Tree();
@@ -41,23 +59,6 @@ public:
 	void delMax();
 
 	friend ostream& operator<<(ostream&, const Tree&);
-private:
-	node* root;
-
-	void delTree(node*);
-
-	string toString(const node*) const;
-
-	node* minNode(node*) const;
-	node* maxNode(node*) const;
-
-	bool exists(const int&, const node*) const;
-
-	node* leftRotate(node*);
-	node* rightRotate(node*);
-
-	node* addNode(node*, const int&);
-	node* delNode(node*, const int&);
 };
 
 #endif // TREE_H
