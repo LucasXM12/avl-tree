@@ -10,24 +10,15 @@
 
 using namespace std;
 
-int main () {
+int main() {
 	Tree aux;
 
-	aux.addNode (9);
-	aux.addNode (5);
-	aux.addNode (10);
-	aux.addNode (0);
-	aux.addNode (6);
-	aux.addNode (11);
-	aux.addNode (-1);
-	aux.addNode (1);
-	aux.addNode (2);
-
-	aux.delNode (10);
+	for (int i = 0; i < 15; i++)
+		aux.addNode(i);
 
 	cout << aux;
 
-	_getch ();
+	_getch();
 
 	return 0;
 }

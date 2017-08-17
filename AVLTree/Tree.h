@@ -23,39 +23,41 @@ class Tree {
 	} node;
 
 public:
-	Tree ();
-	virtual ~Tree ();
+	Tree();
+	virtual ~Tree();
 
-	string toString () const;
+	string toString() const;
 
-	void addNode (const int);
-	node* newNode (const int) const;
+	void addNode(const int&);
+	node* newNode(const int&) const;
 
-	int minNode () const;
-	int maxNode () const;
+	int minNode() const;
+	int maxNode() const;
 
-	bool exists (const int) const;
+	bool exists(const int&) const;
 
-	void delNode (const int);
+	void delNode(const int&);
+	void delMin();
+	void delMax();
 
 	friend ostream& operator<<(ostream&, const Tree&);
 private:
 	node* root;
 
-	void delTree (node*);
+	void delTree(node*);
 
-	string toString (node*) const;
+	string toString(const node*) const;
 
-	node* minNode (node*) const;
-	node* maxNode (node*) const;
+	node* minNode(node*) const;
+	node* maxNode(node*) const;
 
-	bool exists (const int, node*) const;
+	bool exists(const int&, const node*) const;
 
-	node* leftRotate (node*);
-	node* rightRotate (node*);
+	node* leftRotate(node*);
+	node* rightRotate(node*);
 
-	node* addNode (node*, const int);
-	node* delNode (node*, const int);
+	node* addNode(node*, const int&);
+	node* delNode(node*, const int&);
 };
 
 #endif // TREE_H

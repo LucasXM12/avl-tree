@@ -1,48 +1,48 @@
 #include "stdafx.h"
 #include "Tree.h"
 
-Tree::Tree () {
+Tree::Tree() {
 	this->root = NULL;
 }
 
-Tree::~Tree () {
+Tree::~Tree() {
 	if (this->root != NULL)
-		delTree (this->root);
+		delTree(this->root);
 }
 
-void Tree::delTree (node* root) {
+void Tree::delTree(node* root) {
 	if (root->left != NULL)
-		delTree (root->left);
+		delTree(root->left);
 
 	if (root->right != NULL)
-		delTree (root->right);
+		delTree(root->right);
 
 	delete root;
 }
 
-string Tree::toString () const {
+string Tree::toString() const {
 	if (this->root == NULL)
 		return "null";
 
-	return toString (this->root);
+	return toString(this->root);
 }
 
-string Tree::toString (node* root) const {
+string Tree::toString(const node* root) const {
 	string ret;
 
 	if (root->left != NULL)
-		ret = "(" + toString (root->left) + ")<-";
+		ret = "(" + toString(root->left) + ")<-";
 
-	ret += to_string (root->data);
+	ret += to_string(root->data);
 
 	if (root->right != NULL)
-		ret += "->(" + toString (root->right) + ")";
+		ret += "->(" + toString(root->right) + ")";
 
 	return ret;
 }
 
-Tree::node* Tree::newNode (const int data) const {
-	node* ret = new node ();
+Tree::node* Tree::newNode(const int& data) const {
+	node* ret = new node();
 
 	ret->data = data;
 	ret->left = NULL;
@@ -52,42 +52,42 @@ Tree::node* Tree::newNode (const int data) const {
 	return ret;
 }
 
-int Tree::minNode () const {
-	return minNode (this->root)->data;
+int Tree::minNode() const {
+	return minNode(this->root)->data;
 }
 
-Tree::node* Tree::minNode (node* root) const {
+Tree::node* Tree::minNode(node* root) const {
 	if (root->left != NULL)
-		return minNode (root->left);
+		return minNode(root->left);
 
 	return root;
 }
 
-int Tree::maxNode () const {
-	return maxNode (this->root)->data;
+int Tree::maxNode() const {
+	return maxNode(this->root)->data;
 }
 
-Tree::node* Tree::maxNode (node* root) const {
+Tree::node* Tree::maxNode(node* root) const {
 	if (root->right != NULL)
-		return maxNode (root->right);
+		return maxNode(root->right);
 
 	return root;
 }
 
-bool Tree::exists (const int data) const {
-	return exists (data, this->root);
+bool Tree::exists(const int& data) const {
+	return exists(data, this->root);
 }
 
-bool Tree::exists (const int data, node* root) const {
+bool Tree::exists(const int& data, const node* root) const {
 	if (data == root->data)
 		return true;
 	else if (data < root->data)
-		return root->left ? exists (data, root->left) : false;
+		return root->left ? exists(data, root->left) : false;
 	else
-		return root->right ? exists (data, root->right) : false;
+		return root->right ? exists(data, root->right) : false;
 }
 
-Tree::node* Tree::leftRotate (node* root) {
+Tree::node* Tree::leftRotate(node* root) {
 	node* y = root->right;
 	node* T2 = y->left;
 
@@ -96,13 +96,13 @@ Tree::node* Tree::leftRotate (node* root) {
 	root->right = T2;
 
 	//Update heights:
-	root->height = height_update (root);
-	y->height = height_update (y);
+	root->height = height_update(root);
+	y->height = height_update(y);
 
 	return y;
 }
 
-Tree::node* Tree::rightRotate (node* root) {
+Tree::node* Tree::rightRotate(node* root) {
 	node* x = root->left;
 	node* T2 = x->right;
 
@@ -111,71 +111,71 @@ Tree::node* Tree::rightRotate (node* root) {
 	root->left = T2;
 
 	//Update heights:
-	root->height = height_update (root);
-	x->height = height_update (x);
+	root->height = height_update(root);
+	x->height = height_update(x);
 
 	return x;
 }
 
-void Tree::addNode (const int data) {
-	this->root = addNode (this->root, data);
+void Tree::addNode(const int& data) {
+	this->root = addNode(this->root, data);
 }
 
-Tree::node* Tree::addNode (node* root, const int data) {
+Tree::node* Tree::addNode(node* root, const int& data) {
 	//Normal insertion:--------------------------- 
 	if (root == NULL)
-		return(newNode (data));
+		return(newNode(data));
 
 	if (data < root->data)
-		root->left = addNode (root->left, data);
+		root->left = addNode(root->left, data);
 	else
-		root->right = addNode (root->right, data);
+		root->right = addNode(root->right, data);
 
 	//Update height:---------------------------
-	root->height = height_update (root);
+	root->height = height_update(root);
 
 	//Get balance factor:---------------------------
-	int balance = balance_factor (root);
+	int balance = balance_factor(root);
 
 	//Balance this sub tree:---------------------------
 	//LL Case:
 	if (balance > 1 && data < root->left->data)
-		return rightRotate (root);
+		return rightRotate(root);
 
 	//RR Case:
 	if (balance < -1 && data > root->right->data)
-		return leftRotate (root);
+		return leftRotate(root);
 
 	//LR Case:
 	if (balance > 1 && data > root->left->data) {
-		root->left = leftRotate (root->left);
+		root->left = leftRotate(root->left);
 
-		return rightRotate (root);
+		return rightRotate(root);
 	}
 
 	//RL Case:
 	if (balance < -1 && data < root->right->data) {
-		root->right = rightRotate (root->right);
+		root->right = rightRotate(root->right);
 
-		return leftRotate (root);
+		return leftRotate(root);
 	}
 
 	//If is balanced:
 	return root;
 }
 
-void Tree::delNode (const int data) {
-	this->root = delNode (this->root, data);
+void Tree::delNode(const int& data) {
+	this->root = delNode(this->root, data);
 }
 
-Tree::node* Tree::delNode (node* root, const int data) {
+Tree::node* Tree::delNode(node* root, const int& data) {
 	//Normal deletion:---------------------------
 	if (root == NULL)
 		return root;
 	else if (data < root->data) //The node is on the left sub tree:
-		root->left = delNode (root->left, data);
+		root->left = delNode(root->left, data);
 	else if (data > root->data) //The node is on the right sub tree:
-		root->right = delNode (root->right, data);
+		root->right = delNode(root->right, data);
 	else { //The node is the current one:
 		if (root->left == NULL || root->right == NULL) { //One or none children:
 			node* aux = root->left ? root->left : root->right;
@@ -184,16 +184,18 @@ Tree::node* Tree::delNode (node* root, const int data) {
 			if (aux == NULL) {
 				aux = root;
 				root = NULL;
-			} else //One child:
+			}
+			else //One child:
 				*root = *aux;
 
 			delete aux;
-		} else { //Two children:
-			node* aux = minNode (root->right);
+		}
+		else { //Two children:
+			node* aux = minNode(root->right);
 
 			root->data = aux->data;
 
-			root->right = delNode (root->right, aux->data);
+			root->right = delNode(root->right, aux->data);
 		}
 	}
 
@@ -201,38 +203,46 @@ Tree::node* Tree::delNode (node* root, const int data) {
 		return NULL;
 
 	//Update height:---------------------------
-	root->height = height_update (root);
+	root->height = height_update(root);
 
 	//Get balance factor:---------------------------
-	int balance = balance_factor (root);
+	int balance = balance_factor(root);
 
 	//Balance this sub tree:---------------------------
 	//LL Case:
-	if (balance > 1 && balance_factor (root->left) >= 0)
-		return rightRotate (root);
+	if (balance > 1 && balance_factor(root->left) >= 0)
+		return rightRotate(root);
 
 	//LR Case:
-	if (balance > 1 && balance_factor (root->left) < 0) {
-		root->left = leftRotate (root->left);
+	if (balance > 1 && balance_factor(root->left) < 0) {
+		root->left = leftRotate(root->left);
 
-		return rightRotate (root);
+		return rightRotate(root);
 	}
 
 	//RR Case:
-	if (balance < -1 && balance_factor (root->right) <= 0)
-		return leftRotate (root);
+	if (balance < -1 && balance_factor(root->right) <= 0)
+		return leftRotate(root);
 
 	//RL Case:
-	if (balance < -1 && balance_factor (root->right) > 0) {
-		root->right = rightRotate (root->right);
+	if (balance < -1 && balance_factor(root->right) > 0) {
+		root->right = rightRotate(root->right);
 
-		return leftRotate (root);
+		return leftRotate(root);
 	}
 
 	//If is balanced:
 	return root;
 }
 
+void Tree::delMin() {
+	this->root = delNode(this->root, minNode());
+}
+
+void Tree::delMax() {
+	this->root = delNode(this->root, maxNode());
+}
+
 ostream& operator<<(ostream& os, const Tree& tree) {
-	return os << tree.toString ();
+	return os << tree.toString();
 }
