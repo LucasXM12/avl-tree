@@ -37,6 +37,8 @@ private:
 	node* rightRotate(node*);
 
 	node* addNode(node*, const int&);
+	node* newNode(const int&) const;
+
 	node* delNode(node*, const int&);
 
 public:
@@ -46,7 +48,6 @@ public:
 	string toString() const;
 
 	void addNode(const int&);
-	node* newNode(const int&) const;
 
 	int minNode() const;
 	int maxNode() const;

@@ -13,7 +13,10 @@ using namespace std;
 int main() {
 	Tree aux;
 	
-	cout << ;
+	aux.addNode(1);
+	cout << aux.exists(1) << endl;
+	aux.delMax();
+	cout << aux.exists(1) << endl;
 
 	_getch();
 

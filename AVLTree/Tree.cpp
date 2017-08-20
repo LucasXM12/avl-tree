@@ -1,6 +1,8 @@
 #include "stdafx.h"
 #include "Tree.h"
 
+#include <stdexcept>
+
 Tree::Tree() {
 	this->root = NULL;
 }
@@ -54,7 +56,7 @@ Tree::node* Tree::newNode(const int& key) const {
 
 int Tree::minNode() const {
 	if (!this->root)
-		return;
+		throw exception("Empty tree");
 
 	return minNode(this->root)->key;
 }
@@ -68,7 +70,7 @@ Tree::node* Tree::minNode(node* root) const {
 
 int Tree::maxNode() const {
 	if (!this->root)
-		return;
+		throw exception("Empty tree");
 
 	return maxNode(this->root)->key;
 }
