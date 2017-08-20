@@ -12,12 +12,8 @@ using namespace std;
 
 int main() {
 	Tree aux;
-
-	for (int i = 0; i < 15; i++) {
-		aux.addNode(i);
-		cout << aux << endl << endl;
-	}
 	
+	cout << ;
 
 	_getch();
 

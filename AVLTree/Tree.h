@@ -15,12 +15,11 @@ using namespace std;
 class Tree {
 private:
 	typedef struct node {
-		int data;
+		int key;
+		int height;
 
 		node* left;
-		node* right;
-
-		int height;
+		node* right;	
 	} node;
 
 	node* root;
