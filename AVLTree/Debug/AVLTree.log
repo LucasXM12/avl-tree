@@ -1,3 +1,63 @@
-﻿  AVLTree.cpp
-  AVLTree.vcxproj -> D:\PD\TED\avl_tree_ted\AVLTree\Debug\AVLTree.exe
-  AVLTree.vcxproj -> D:\PD\TED\avl_tree_ted\AVLTree\Debug\AVLTree.pdb (Full PDB)
+﻿  Tree.cpp
+c:\users\lucas\desktop\avl_tree_ted\avltree\tree.cpp(46): error C2988: unrecognizable template declaration/definition
+c:\users\lucas\desktop\avl_tree_ted\avltree\tree.cpp(46): error C2143: syntax error: missing ';' before '*'
+c:\users\lucas\desktop\avl_tree_ted\avltree\tree.cpp(46): error C2065: 'dataType': undeclared identifier
+c:\users\lucas\desktop\avl_tree_ted\avltree\tree.cpp(46): error C2923: 'Tree': 'dataType' is not a valid template type argument for parameter 'dataType'
+c:\users\lucas\desktop\avl_tree_ted\avltree\tree.cpp(55): error C2988: unrecognizable template declaration/definition
+c:\users\lucas\desktop\avl_tree_ted\avltree\tree.cpp(55): error C2059: syntax error: '<end Parse>'
+c:\users\lucas\desktop\avl_tree_ted\avltree\tree.cpp(57): error C2065: 'dataType': undeclared identifier
+c:\users\lucas\desktop\avl_tree_ted\avltree\tree.cpp(57): error C2923: 'Tree': 'dataType' is not a valid template type argument for parameter 'dataType'
+c:\users\lucas\desktop\avl_tree_ted\avltree\tree.cpp(57): error C2143: syntax error: missing ';' before '{'
+c:\users\lucas\desktop\avl_tree_ted\avltree\tree.cpp(57): error C2447: '{': missing function header (old-style formal list?)
+c:\users\lucas\desktop\avl_tree_ted\avltree\tree.cpp(64): error C2988: unrecognizable template declaration/definition
+c:\users\lucas\desktop\avl_tree_ted\avltree\tree.cpp(64): error C2143: syntax error: missing ';' before '*'
+c:\users\lucas\desktop\avl_tree_ted\avltree\tree.cpp(64): error C2065: 'dataType': undeclared identifier
+c:\users\lucas\desktop\avl_tree_ted\avltree\tree.cpp(64): error C2923: 'Tree': 'dataType' is not a valid template type argument for parameter 'dataType'
+c:\users\lucas\desktop\avl_tree_ted\avltree\tree.cpp(69): error C2988: unrecognizable template declaration/definition
+c:\users\lucas\desktop\avl_tree_ted\avltree\tree.cpp(69): error C2059: syntax error: '<end Parse>'
+c:\users\lucas\desktop\avl_tree_ted\avltree\tree.cpp(71): error C2065: 'dataType': undeclared identifier
+c:\users\lucas\desktop\avl_tree_ted\avltree\tree.cpp(71): error C2923: 'Tree': 'dataType' is not a valid template type argument for parameter 'dataType'
+c:\users\lucas\desktop\avl_tree_ted\avltree\tree.cpp(71): error C2143: syntax error: missing ';' before '{'
+c:\users\lucas\desktop\avl_tree_ted\avltree\tree.cpp(71): error C2447: '{': missing function header (old-style formal list?)
+c:\users\lucas\desktop\avl_tree_ted\avltree\tree.cpp(78): error C2988: unrecognizable template declaration/definition
+c:\users\lucas\desktop\avl_tree_ted\avltree\tree.cpp(78): error C2143: syntax error: missing ';' before '*'
+c:\users\lucas\desktop\avl_tree_ted\avltree\tree.cpp(78): error C2065: 'dataType': undeclared identifier
+c:\users\lucas\desktop\avl_tree_ted\avltree\tree.cpp(78): error C2923: 'Tree': 'dataType' is not a valid template type argument for parameter 'dataType'
+c:\users\lucas\desktop\avl_tree_ted\avltree\tree.cpp(83): error C2988: unrecognizable template declaration/definition
+c:\users\lucas\desktop\avl_tree_ted\avltree\tree.cpp(83): error C2059: syntax error: '<end Parse>'
+c:\users\lucas\desktop\avl_tree_ted\avltree\tree.cpp(85): error C2065: 'dataType': undeclared identifier
+c:\users\lucas\desktop\avl_tree_ted\avltree\tree.cpp(85): error C2923: 'Tree': 'dataType' is not a valid template type argument for parameter 'dataType'
+c:\users\lucas\desktop\avl_tree_ted\avltree\tree.cpp(85): error C2143: syntax error: missing ';' before '{'
+c:\users\lucas\desktop\avl_tree_ted\avltree\tree.cpp(85): error C2447: '{': missing function header (old-style formal list?)
+c:\users\lucas\desktop\avl_tree_ted\avltree\tree.cpp(101): error C2988: unrecognizable template declaration/definition
+c:\users\lucas\desktop\avl_tree_ted\avltree\tree.cpp(101): error C2143: syntax error: missing ';' before '*'
+c:\users\lucas\desktop\avl_tree_ted\avltree\tree.cpp(101): error C2065: 'dataType': undeclared identifier
+c:\users\lucas\desktop\avl_tree_ted\avltree\tree.cpp(101): error C2923: 'Tree': 'dataType' is not a valid template type argument for parameter 'dataType'
+c:\users\lucas\desktop\avl_tree_ted\avltree\tree.cpp(114): error C2988: unrecognizable template declaration/definition
+c:\users\lucas\desktop\avl_tree_ted\avltree\tree.cpp(114): error C2059: syntax error: '<end Parse>'
+c:\users\lucas\desktop\avl_tree_ted\avltree\tree.cpp(116): error C2065: 'dataType': undeclared identifier
+c:\users\lucas\desktop\avl_tree_ted\avltree\tree.cpp(116): error C2923: 'Tree': 'dataType' is not a valid template type argument for parameter 'dataType'
+c:\users\lucas\desktop\avl_tree_ted\avltree\tree.cpp(116): error C2143: syntax error: missing ';' before '{'
+c:\users\lucas\desktop\avl_tree_ted\avltree\tree.cpp(116): error C2447: '{': missing function header (old-style formal list?)
+c:\users\lucas\desktop\avl_tree_ted\avltree\tree.cpp(135): error C2988: unrecognizable template declaration/definition
+c:\users\lucas\desktop\avl_tree_ted\avltree\tree.cpp(135): error C2143: syntax error: missing ';' before '*'
+c:\users\lucas\desktop\avl_tree_ted\avltree\tree.cpp(135): error C2065: 'dataType': undeclared identifier
+c:\users\lucas\desktop\avl_tree_ted\avltree\tree.cpp(135): error C2923: 'Tree': 'dataType' is not a valid template type argument for parameter 'dataType'
+c:\users\lucas\desktop\avl_tree_ted\avltree\tree.cpp(176): error C2988: unrecognizable template declaration/definition
+c:\users\lucas\desktop\avl_tree_ted\avltree\tree.cpp(176): error C2059: syntax error: '<end Parse>'
+c:\users\lucas\desktop\avl_tree_ted\avltree\tree.cpp(178): error C2065: 'dataType': undeclared identifier
+c:\users\lucas\desktop\avl_tree_ted\avltree\tree.cpp(178): error C2923: 'Tree': 'dataType' is not a valid template type argument for parameter 'dataType'
+c:\users\lucas\desktop\avl_tree_ted\avltree\tree.cpp(178): error C2143: syntax error: missing ';' before '{'
+c:\users\lucas\desktop\avl_tree_ted\avltree\tree.cpp(178): error C2447: '{': missing function header (old-style formal list?)
+c:\users\lucas\desktop\avl_tree_ted\avltree\tree.cpp(182): error C2988: unrecognizable template declaration/definition
+c:\users\lucas\desktop\avl_tree_ted\avltree\tree.cpp(182): error C2143: syntax error: missing ';' before '*'
+c:\users\lucas\desktop\avl_tree_ted\avltree\tree.cpp(182): error C2065: 'dataType': undeclared identifier
+c:\users\lucas\desktop\avl_tree_ted\avltree\tree.cpp(182): error C2923: 'Tree': 'dataType' is not a valid template type argument for parameter 'dataType'
+c:\users\lucas\desktop\avl_tree_ted\avltree\tree.cpp(247): error C2988: unrecognizable template declaration/definition
+c:\users\lucas\desktop\avl_tree_ted\avltree\tree.cpp(247): error C2059: syntax error: '<end Parse>'
+c:\users\lucas\desktop\avl_tree_ted\avltree\tree.cpp(249): error C2065: 'dataType': undeclared identifier
+c:\users\lucas\desktop\avl_tree_ted\avltree\tree.cpp(249): error C2923: 'Tree': 'dataType' is not a valid template type argument for parameter 'dataType'
+c:\users\lucas\desktop\avl_tree_ted\avltree\tree.cpp(249): error C2143: syntax error: missing ';' before '{'
+c:\users\lucas\desktop\avl_tree_ted\avltree\tree.cpp(249): error C2447: '{': missing function header (old-style formal list?)
+c:\users\lucas\desktop\avl_tree_ted\avltree\tree.cpp(257): error C2065: 'dataType': undeclared identifier
+c:\users\lucas\desktop\avl_tree_ted\avltree\tree.cpp(257): error C2923: 'Tree': 'dataType' is not a valid template type argument for parameter 'dataType'

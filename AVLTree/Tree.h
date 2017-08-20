@@ -12,10 +12,13 @@
 
 using namespace std;
 
-class Tree {
+template <typename dataType> class Tree {
 private:
 	typedef struct node {
 		int key;
+
+		dataType data;
+
 		int height;
 
 		node* left;
@@ -58,8 +61,7 @@ public:
 	void delMin();
 	void delMax();
 
-	friend ostream& operator<<(ostream&, const Tree&);
+	friend ostream& operator<<(ostream&, const Tree<dataType>&);
 };
 
 #endif // TREE_H
-

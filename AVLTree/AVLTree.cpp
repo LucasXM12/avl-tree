@@ -11,7 +11,7 @@
 using namespace std;
 
 int main() {
-	Tree aux;
+	Tree<int> aux;
 	
 	aux.addNode(1);
 	cout << aux.exists(1) << endl;

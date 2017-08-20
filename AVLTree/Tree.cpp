@@ -3,16 +3,16 @@
 
 #include <stdexcept>
 
-Tree::Tree() {
+template<typename dataType> Tree<dataType>::Tree() {
 	this->root = NULL;
 }
 
-Tree::~Tree() {
+template<typename dataType> Tree<dataType>::~Tree() {
 	if (this->root)
 		delTree(this->root);
 }
 
-void Tree::delTree(node* root) {
+template<typename dataType> void Tree<dataType>::delTree(node* root) {
 	if (root->left)
 		delTree(root->left);
 
@@ -22,14 +22,14 @@ void Tree::delTree(node* root) {
 	delete root;
 }
 
-string Tree::toString() const {
+template<typename dataType> string Tree<dataType>::toString() const {
 	if (!this->root)
 		return "null";
 
 	return toString(this->root);
 }
 
-string Tree::toString(const node* root) const {
+template<typename dataType> string Tree<dataType>::toString(const node* root) const {
 	string ret;
 
 	if (root->left)
@@ -43,7 +43,7 @@ string Tree::toString(const node* root) const {
 	return ret;
 }
 
-Tree::node* Tree::newNode(const int& key) const {
+template<typename dataType> node* Tree<dataType>::newNode(const int& key) const {
 	node* ret = new node();
 
 	ret->key = key;
@@ -54,42 +54,42 @@ Tree::node* Tree::newNode(const int& key) const {
 	return ret;
 }
 
-int Tree::minNode() const {
+template<typename dataType> int Tree<dataType>::minNode() const {
 	if (!this->root)
 		throw exception("Empty tree");
 
 	return minNode(this->root)->key;
 }
 
-Tree::node* Tree::minNode(node* root) const {
+template<typename dataType> node* Tree<dataType>::minNode(node* root) const {
 	if (root->left)
 		return minNode(root->left);
 
 	return root;
 }
 
-int Tree::maxNode() const {
+template<typename dataType> int Tree<dataType>::maxNode() const {
 	if (!this->root)
 		throw exception("Empty tree");
 
 	return maxNode(this->root)->key;
 }
 
-Tree::node* Tree::maxNode(node* root) const {
+template<typename dataType> node* Tree<dataType>::maxNode(node* root) const {
 	if (root->right != NULL)
 		return maxNode(root->right);
 
 	return root;
 }
 
-bool Tree::exists(const int& key) const {
+template<typename dataType> bool Tree<dataType>::exists(const int& key) const {
 	if (!this->root)
 		return false;
 
 	return exists(key, this->root);
 }
 
-bool Tree::exists(const int& key, const node* root) const {
+template<typename dataType> bool Tree<dataType>::exists(const int& key, const node* root) const {
 	if (key == root->key)
 		return true;
 	else if (key < root->key)
@@ -98,7 +98,7 @@ bool Tree::exists(const int& key, const node* root) const {
 		return root->right ? exists(key, root->right) : false;
 }
 
-Tree::node* Tree::leftRotate(node* root) {
+template<typename dataType> node* Tree<dataType>::leftRotate(node* root) {
 	node* y = root->right;
 	node* T2 = y->left;
 
@@ -113,7 +113,7 @@ Tree::node* Tree::leftRotate(node* root) {
 	return y;
 }
 
-Tree::node* Tree::rightRotate(node* root) {
+template<typename dataType> node* Tree<dataType>::rightRotate(node* root) {
 	node* x = root->left;
 	node* T2 = x->right;
 
@@ -128,11 +128,11 @@ Tree::node* Tree::rightRotate(node* root) {
 	return x;
 }
 
-void Tree::addNode(const int& key) {
+template<typename dataType> void Tree<dataType>::addNode(const int& key) {
 	this->root = addNode(this->root, key);
 }
 
-Tree::node* Tree::addNode(node* root, const int& key) {
+template<typename dataType> node* Tree<dataType>::addNode(node* root, const int& key) {
 	//Normal insertion:--------------------------- 
 	if (root == NULL)
 		return(newNode(key));
@@ -175,11 +175,11 @@ Tree::node* Tree::addNode(node* root, const int& key) {
 	return root;
 }
 
-void Tree::delNode(const int& key) {
+template<typename dataType> void Tree<dataType>::delNode(const int& key) {
 	this->root = delNode(this->root, key);
 }
 
-Tree::node* Tree::delNode(node* root, const int& key) {
+template<typename dataType> node* Tree<dataType>::delNode(node* root, const int& key) {
 	//Normal deletion:---------------------------
 	if (!root)
 		return root;
@@ -246,14 +246,14 @@ Tree::node* Tree::delNode(node* root, const int& key) {
 	return root;
 }
 
-void Tree::delMin() {
+template<typename dataType> void Tree<dataType>::delMin() {
 	this->root = delNode(this->root, minNode());
 }
 
-void Tree::delMax() {
+template<typename dataType> void Tree<dataType>::delMax() {
 	this->root = delNode(this->root, maxNode());
 }
 
-ostream& operator<<(ostream& os, const Tree& tree) {
+template<typename NODETYPE> Tree<dataType>::ostream& operator<<(ostream& os, const Tree<dataType>& tree) {
 	return os << tree.toString();
 }
