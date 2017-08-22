@@ -11,13 +11,17 @@
 using namespace std;
 
 int main() {
-	Tree aux;
+	Tree<Tree<int>> aux; 
 
-	for (int i = 0; i < 15; i++) {
-		aux.addNode(i);
-		cout << aux << endl << endl;
-	}
+	Tree<int> aux1;
+
+	for (int i = 0; i < 5; i++) 
+		aux1.addNode(i, 10);
 	
+	for (int i = 0; i < 5; i++)
+		aux.addNode(i, aux1);
+	
+	cout << aux1;
 
 	_getch();
 

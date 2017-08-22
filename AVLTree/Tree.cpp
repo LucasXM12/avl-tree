@@ -1,93 +1,117 @@
 #include "stdafx.h"
 #include "Tree.h"
 
-Tree::Tree() {
+#include <stdexcept>
+
+template<class dataType>
+Tree<dataType>::Tree() {
 	this->root = NULL;
 }
 
-Tree::~Tree() {
-	if (this->root != NULL)
+template<class dataType>
+Tree<dataType>::~Tree() {
+	if (this->root)
 		delTree(this->root);
 }
 
-void Tree::delTree(node* root) {
-	if (root->left != NULL)
+template<class dataType>
+void Tree<dataType>::delTree(node* root) {
+	if (root->left)
 		delTree(root->left);
 
-	if (root->right != NULL)
+	if (root->right)
 		delTree(root->right);
 
 	delete root;
 }
 
-string Tree::toString() const {
-	if (this->root == NULL)
+template<class dataType>
+string Tree<dataType>::toString() const {
+	if (!this->root)
 		return "null";
 
 	return toString(this->root);
 }
 
-string Tree::toString(const node* root) const {
+template<class dataType>
+string Tree<dataType>::toString(const node* root) const {
 	string ret;
 
-	if (root->left != NULL)
+	if (root->left)
 		ret = "(" + toString(root->left) + ")<-";
 
-	ret += to_string(root->data);
+	ret += to_string(root->key);
 
-	if (root->right != NULL)
+	if (root->right)
 		ret += "->(" + toString(root->right) + ")";
 
 	return ret;
 }
 
-Tree::node* Tree::newNode(const int& data) const {
+template<class dataType>
+typename Tree<dataType>::node* Tree<dataType>::newNode(const int& key) const {
 	node* ret = new node();
 
-	ret->data = data;
+	ret->key = key;
+	ret->height = 1;
 	ret->left = NULL;
 	ret->right = NULL;
-	ret->height = 1;
 
 	return ret;
 }
 
-int Tree::minNode() const {
-	return minNode(this->root)->data;
+template<class dataType>
+typename int Tree<dataType>::minNode() const {
+	if (!this->root)
+		throw exception("Empty tree");
+
+	return minNode(this->root)->key;
 }
 
-Tree::node* Tree::minNode(node* root) const {
-	if (root->left != NULL)
+template<class dataType>
+typename Tree<dataType>::node* Tree<dataType>::minNode(node* root) const {
+	if (root->left)
 		return minNode(root->left);
 
 	return root;
 }
 
-int Tree::maxNode() const {
-	return maxNode(this->root)->data;
+template<class dataType>
+int Tree<dataType>::maxNode() const {
+	if (!this->root)
+		throw exception("Empty tree");
+
+	return maxNode(this->root)->key;
 }
 
-Tree::node* Tree::maxNode(node* root) const {
+template<class dataType>
+typename Tree<dataType>::node* Tree<dataType>::maxNode(node* root) const {
 	if (root->right != NULL)
 		return maxNode(root->right);
 
 	return root;
 }
 
-bool Tree::exists(const int& data) const {
-	return exists(data, this->root);
+template<class dataType>
+bool Tree<dataType>::exists(const int& key) const {
+	if (!this->root)
+		return false;
+
+	return exists(key, this->root);
 }
 
-bool Tree::exists(const int& data, const node* root) const {
-	if (data == root->data)
+template<class dataType>
+bool Tree<dataType>::exists(const int& key, const node* root) const {
+	if (key == root->key)
 		return true;
-	else if (data < root->data)
-		return root->left ? exists(data, root->left) : false;
+	else if (key < root->key)
+		return root->left ? exists(key, root->left) : false;
 	else
-		return root->right ? exists(data, root->right) : false;
+		return root->right ? exists(key, root->right) : false;
 }
 
-Tree::node* Tree::leftRotate(node* root) {
+template<typename dataType>
+typename Tree<dataType>::node* Tree<dataType>::leftRotate(node* root) {
 	node* y = root->right;
 	node* T2 = y->left;
 
@@ -102,7 +126,8 @@ Tree::node* Tree::leftRotate(node* root) {
 	return y;
 }
 
-Tree::node* Tree::rightRotate(node* root) {
+template<typename dataType>
+typename Tree<dataType>::node* Tree<dataType>::rightRotate(node* root) {
 	node* x = root->left;
 	node* T2 = x->right;
 
@@ -117,19 +142,21 @@ Tree::node* Tree::rightRotate(node* root) {
 	return x;
 }
 
-void Tree::addNode(const int& data) {
-	this->root = addNode(this->root, data);
+template<typename dataType>
+void Tree<dataType>::addNode(const int& key) {
+	this->root = addNode(this->root, key);
 }
 
-Tree::node* Tree::addNode(node* root, const int& data) {
+template<typename dataType>
+typename Tree<dataType>::node* Tree<dataType>::addNode(node* root, const int& key) {
 	//Normal insertion:--------------------------- 
 	if (root == NULL)
-		return(newNode(data));
+		return(newNode(key));
 
-	if (data < root->data)
-		root->left = addNode(root->left, data);
-	else
-		root->right = addNode(root->right, data);
+	if (key < root->key)
+		root->left = addNode(root->left, key);
+	else if (key > root->key)
+		root->right = addNode(root->right, key);
 
 	//Update height:---------------------------
 	root->height = height_update(root);
@@ -139,22 +166,22 @@ Tree::node* Tree::addNode(node* root, const int& data) {
 
 	//Balance this sub tree:---------------------------
 	//LL Case:
-	if (balance > 1 && data < root->left->data)
+	if (balance > 1 && key < root->left->key)
 		return rightRotate(root);
 
 	//RR Case:
-	if (balance < -1 && data > root->right->data)
+	if (balance < -1 && key > root->right->key)
 		return leftRotate(root);
 
 	//LR Case:
-	if (balance > 1 && data > root->left->data) {
+	if (balance > 1 && key > root->left->key) {
 		root->left = leftRotate(root->left);
 
 		return rightRotate(root);
 	}
 
 	//RL Case:
-	if (balance < -1 && data < root->right->data) {
+	if (balance < -1 && key < root->right->key) {
 		root->right = rightRotate(root->right);
 
 		return leftRotate(root);
@@ -164,42 +191,42 @@ Tree::node* Tree::addNode(node* root, const int& data) {
 	return root;
 }
 
-void Tree::delNode(const int& data) {
-	this->root = delNode(this->root, data);
+template<typename dataType>
+void Tree<dataType>::delNode(const int& key) {
+	this->root = delNode(this->root, key);
 }
 
-Tree::node* Tree::delNode(node* root, const int& data) {
+template<typename dataType>
+typename Tree<dataType>::node* Tree<dataType>::delNode(node* root, const int& key) {
 	//Normal deletion:---------------------------
-	if (root == NULL)
+	if (!root)
 		return root;
-	else if (data < root->data) //The node is on the left sub tree:
-		root->left = delNode(root->left, data);
-	else if (data > root->data) //The node is on the right sub tree:
-		root->right = delNode(root->right, data);
+	else if (key < root->key) //The node is on the left sub tree:
+		root->left = delNode(root->left, key);
+	else if (key > root->key) //The node is on the right sub tree:
+		root->right = delNode(root->right, key);
 	else { //The node is the current one:
-		if (root->left == NULL || root->right == NULL) { //One or none children:
+		if (!root->left || !root->right) { //One or none children:
 			node* aux = root->left ? root->left : root->right;
 
 			//No child:
-			if (aux == NULL) {
+			if (!aux) {
 				aux = root;
 				root = NULL;
-			}
-			else //One child:
+			} else //One child:
 				*root = *aux;
 
 			delete aux;
-		}
-		else { //Two children:
+		} else { //Two children:
 			node* aux = minNode(root->right);
 
-			root->data = aux->data;
+			root->key = aux->key;
 
-			root->right = delNode(root->right, aux->data);
+			root->right = delNode(root->right, aux->key);
 		}
 	}
 
-	if (root == NULL)
+	if (!root)
 		return NULL;
 
 	//Update height:---------------------------
@@ -235,14 +262,17 @@ Tree::node* Tree::delNode(node* root, const int& data) {
 	return root;
 }
 
-void Tree::delMin() {
+template<typename dataType>
+void Tree<dataType>::delMin() {
 	this->root = delNode(this->root, minNode());
 }
 
-void Tree::delMax() {
+template<typename dataType>
+void Tree<dataType>::delMax() {
 	this->root = delNode(this->root, maxNode());
 }
 
-ostream& operator<<(ostream& os, const Tree& tree) {
+template<typename dataType>
+ostream& operator<<(ostream& os, const Tree<dataType>& tree) {
 	return os << tree.toString();
 }
