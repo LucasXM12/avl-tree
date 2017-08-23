@@ -45,8 +45,9 @@ private:
 
 	node* addNode(node*, const int&, const dataType&);
 	node* newNode(const int&, const dataType&) const;
-
 	node* delWithKey(node*, const int&);
+	dataType& getWithKey(node*, const int&);
+	void setWithKey(node*, const int&, const dataType&);
 
 public:
 	Tree();
@@ -55,13 +56,14 @@ public:
 	string toString() const;
 
 	void addNode(const int&, const dataType&);
+	void delWithKey(const int&);
+	dataType& getWithKey(const int&);
+	void setWithKey(const int&, const dataType&);
 
 	int minKey() const;
 	int maxKey() const;
 
 	bool existsKey(const int&) const;
-
-	void delWithKey(const int&);
 
 	void delMinKey();
 	void delMaxKey();
@@ -337,6 +339,51 @@ void Tree<dataType>::delMinKey() {
 template<typename dataType>
 void Tree<dataType>::delMaxKey() {
 	this->root = delWithKey(this->root, maxKey());
+}
+
+template<typename dataType>
+dataType& Tree<dataType>::getWithKey(const int& key) {
+	return getWithKey(this->root, key);
+}
+
+template<typename dataType>
+dataType& Tree<dataType>::getWithKey(node* root, const int& key) {
+	if (key < root->key)
+		if (root->left)
+			return getWithKey(root->left, key);
+		else
+			return NULL;
+
+	if (key > root->key)
+		if (root->right)
+			return getWithKey(root->right, key);
+		else
+			return NULL;
+
+	return root->data;
+}
+
+template<typename dataType>
+void Tree<dataType>::setWithKey(const int& key, const dataType& data) {
+	setWithKey(this->root, key, data);
+}
+
+template<typename dataType>
+void Tree<dataType>::setWithKey(node* root, const int& key, const dataType& data) {
+	if (key < root->key)
+		if (root->left)
+			setWithKey(root->left, key, data);
+		else
+			return;
+
+	if (key > root->key)
+		if (root->right)
+			setWithKey(root->right, key, data);
+		else
+			return;
+
+	if (key == root->key)
+		root->data = data;
 }
 
 template<typename dataType>
