@@ -9,9 +9,9 @@
 #define TREE_H
 
 #define max(a, b) (a > b ? a : b)
-#define height(n) (n == NULL ? 0 : n->height) 
+#define height(n) (!n ? 0 : n->height) 
 #define height_update(n) (max(height(n->left), height(n->right)) + 1)
-#define balance_factor(n) (n == NULL ? 0 : (height(n->left) - height(n->right)))
+#define balance_factor(n) (!n ? 0 : (height(n->left) - height(n->right)))
 
 using namespace std;
 
@@ -31,23 +31,24 @@ private:
 
 	node* root;
 
-	void delTree(node*);
+	void delTree(node*&);
 
-	string toString(const node*) const;
+	string toString(const node*&) const;
 
-	node* minKey(node*) const;
-	node* maxKey(node*) const;
+	node*& minKey(node*&) const;
+	node*& maxKey(node*&) const;
 
-	bool existsKey(const int&, const node*) const;
+	bool existsKey(const int&, const node*&) const;
 
-	node* leftRotate(node*);
-	node* rightRotate(node*);
+	node*& leftRotate(node*&);
+	node*& rightRotate(node*&);
 
-	node* addNode(node*, const int&, const dataType&);
-	node* newNode(const int&, const dataType&) const;
-	node* delWithKey(node*, const int&);
-	dataType& getWithKey(node*, const int&);
-	void setWithKey(node*, const int&, const dataType&);
+	node*& newNode(const int&, const dataType&) const;
+
+	node*& addNode(node*&, const int&, const dataType&);
+	node* delWithKey(node*&, const int&);
+	dataType& getWithKey(node*&, const int&);
+	void setWithKey(node*&, const int&, const dataType&);
 
 public:
 	Tree();
@@ -68,8 +69,9 @@ public:
 	void delMinKey();
 	void delMaxKey();
 
+	dataType& operator[](const int&);
 	template<typename dataType> friend ostream& operator<<(ostream&, const Tree<dataType>&);
-}; 
+};
 
 template<class dataType>
 Tree<dataType>::Tree() {
@@ -83,7 +85,7 @@ Tree<dataType>::~Tree() {
 }
 
 template<class dataType>
-void Tree<dataType>::delTree(node* root) {
+void Tree<dataType>::delTree(node*& root) {
 	if (root->left)
 		delTree(root->left);
 
@@ -102,7 +104,7 @@ string Tree<dataType>::toString() const {
 }
 
 template<class dataType>
-string Tree<dataType>::toString(const node* root) const {
+string Tree<dataType>::toString(const node*& root) const {
 	string ret;
 
 	if (root->left)
@@ -117,19 +119,6 @@ string Tree<dataType>::toString(const node* root) const {
 }
 
 template<class dataType>
-typename Tree<dataType>::node* Tree<dataType>::newNode(const int& key, const dataType& data) const {
-	node* ret = new node();
-
-	ret->key = key;
-	ret->data = data;
-	ret->height = 1;
-	ret->left = NULL;
-	ret->right = NULL;
-
-	return ret;
-}
-
-template<class dataType>
 typename int Tree<dataType>::minKey() const {
 	if (!this->root)
 		throw exception("Empty tree");
@@ -138,7 +127,7 @@ typename int Tree<dataType>::minKey() const {
 }
 
 template<class dataType>
-typename Tree<dataType>::node* Tree<dataType>::minKey(node* root) const {
+typename Tree<dataType>::node*& Tree<dataType>::minKey(node*& root) const {
 	if (root->left)
 		return minKey(root->left);
 
@@ -154,7 +143,7 @@ int Tree<dataType>::maxKey() const {
 }
 
 template<class dataType>
-typename Tree<dataType>::node* Tree<dataType>::maxKey(node* root) const {
+typename Tree<dataType>::node*& Tree<dataType>::maxKey(node*& root) const {
 	if (root->right != NULL)
 		return maxKey(root->right);
 
@@ -170,7 +159,7 @@ bool Tree<dataType>::existsKey(const int& key) const {
 }
 
 template<class dataType>
-bool Tree<dataType>::existsKey(const int& key, const node* root) const {
+bool Tree<dataType>::existsKey(const int& key, const node*& root) const {
 	if (key == root->key)
 		return true;
 	else if (key < root->key)
@@ -180,7 +169,7 @@ bool Tree<dataType>::existsKey(const int& key, const node* root) const {
 }
 
 template<typename dataType>
-typename Tree<dataType>::node* Tree<dataType>::leftRotate(node* root) {
+typename Tree<dataType>::node*& Tree<dataType>::leftRotate(node*& root) {
 	node* y = root->right;
 	node* T2 = y->left;
 
@@ -196,7 +185,7 @@ typename Tree<dataType>::node* Tree<dataType>::leftRotate(node* root) {
 }
 
 template<typename dataType>
-typename Tree<dataType>::node* Tree<dataType>::rightRotate(node* root) {
+typename Tree<dataType>::node*& Tree<dataType>::rightRotate(node*& root) {
 	node* x = root->left;
 	node* T2 = x->right;
 
@@ -211,16 +200,29 @@ typename Tree<dataType>::node* Tree<dataType>::rightRotate(node* root) {
 	return x;
 }
 
+template<class dataType>
+typename Tree<dataType>::node*& Tree<dataType>::newNode(const int& key, const dataType& data) const {
+	node* ret = new node();
+
+	ret->key = key;
+	ret->data = data;
+	ret->height = 1;
+	ret->left = NULL;
+	ret->right = NULL;
+
+	return ret;
+}
+
 template<typename dataType>
 void Tree<dataType>::addNode(const int& key, const dataType& data) {
 	this->root = addNode(this->root, key, data);
 }
 
 template<typename dataType>
-typename Tree<dataType>::node* Tree<dataType>::addNode(node* root, const int& key, const dataType& data) {
+typename Tree<dataType>::node*& Tree<dataType>::addNode(node*& root, const int& key, const dataType& data) {
 	//Normal insertion:--------------------------- 
 	if (root == NULL)
-		return(newNode(key, data));
+		return newNode(key, data);
 
 	if (key < root->key)
 		root->left = addNode(root->left, key, data);
@@ -266,7 +268,7 @@ void Tree<dataType>::delWithKey(const int& key) {
 }
 
 template<typename dataType>
-typename Tree<dataType>::node* Tree<dataType>::delWithKey(node* root, const int& key) {
+typename Tree<dataType>::node* Tree<dataType>::delWithKey(node*& root, const int& key) {
 	//Normal deletion:---------------------------
 	if (!root)
 		return root;
@@ -347,18 +349,18 @@ dataType& Tree<dataType>::getWithKey(const int& key) {
 }
 
 template<typename dataType>
-dataType& Tree<dataType>::getWithKey(node* root, const int& key) {
+dataType& Tree<dataType>::getWithKey(node*& root, const int& key) {
 	if (key < root->key)
 		if (root->left)
 			return getWithKey(root->left, key);
 		else
-			return NULL;
+			throw out_of_range("Index out of range");
 
 	if (key > root->key)
 		if (root->right)
 			return getWithKey(root->right, key);
 		else
-			return NULL;
+			throw out_of_range("Index out of range");
 
 	return root->data;
 }
@@ -369,7 +371,7 @@ void Tree<dataType>::setWithKey(const int& key, const dataType& data) {
 }
 
 template<typename dataType>
-void Tree<dataType>::setWithKey(node* root, const int& key, const dataType& data) {
+void Tree<dataType>::setWithKey(node*& root, const int& key, const dataType& data) {
 	if (key < root->key)
 		if (root->left)
 			setWithKey(root->left, key, data);
@@ -389,6 +391,11 @@ void Tree<dataType>::setWithKey(node* root, const int& key, const dataType& data
 template<typename dataType>
 ostream& operator<<(ostream& os, const Tree<dataType>& tree) {
 	return os << tree.toString();
+}
+
+template<typename dataType>
+dataType& Tree<dataType>::operator[](const int& key) {
+	return getWithKey(key);
 }
 
 #endif // TREE_H
