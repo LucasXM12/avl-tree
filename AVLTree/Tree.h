@@ -228,6 +228,8 @@ typename Tree<dataType>::node*& Tree<dataType>::addNode(node*& root, const int& 
 		root->left = addNode(root->left, key, data);
 	else if (key > root->key)
 		root->right = addNode(root->right, key, data);
+	else 
+		throw invalid_argument("Key already exists!!!");
 
 	//Update height:---------------------------
 	root->height = height_update(root);
