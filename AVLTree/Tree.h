@@ -33,7 +33,7 @@ private:
 
 	void delTree(node*&);
 
-	string toString(const node*&) const;
+	string toString(node* const&) const;
 
 	node*& minKey(node*&) const;
 	node*& maxKey(node*&) const;
@@ -104,13 +104,13 @@ string Tree<dataType>::toString() const {
 }
 
 template<class dataType>
-string Tree<dataType>::toString(const node*& root) const {
+string Tree<dataType>::toString(node* const& root) const {
 	string ret;
 
 	if (root->left)
 		ret = "(" + toString(root->left) + ")<-";
 
-	ret += "[" + to_string(root->key) + ':' + to_string(root->data) + "]";
+	ret += "|" + to_string(root->key) + ':' + to_string(root->data) + "|";
 
 	if (root->right)
 		ret += "->(" + toString(root->right) + ")";
@@ -284,11 +284,13 @@ typename Tree<dataType>::node* Tree<dataType>::delWithKey(node*& root, const int
 			if (!aux) {
 				aux = root;
 				root = NULL;
-			} else //One child:
+			}
+			else //One child:
 				*root = *aux;
 
 			delete aux;
-		} else { //Two children:
+		}
+		else { //Two children:
 			node* aux = minKey(root->right);
 
 			root->key = aux->key;

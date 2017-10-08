@@ -6,7 +6,6 @@
 #include <iostream>
 
 #include "Tree.h"
-#include "AVLTree.h"
 
 using namespace std;
 
